@@ -1,0 +1,21 @@
+.group{
+    display: flex;
+    flex-wrap: wrap ;
+    min-width: 25%;
+    padding: 10px 8px;
+    background-color: rgb(255 252 252 / 70%);
+    border: none;
+    margin: 10px;
+    justify-content: space-around;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.4s;
+    -webkit-box-shadow: 0px 0px 8px 4px rgba(34, 60, 80, 0.5);
+    -moz-box-shadow: 0px 0px 8px 4px rgba(34, 60, 80, 0.5);
+    box-shadow: 0px 0px 8px 4px rgba(34, 60, 80, 0.5);
+    }
+.group:hover{
+    background-color: rgba(19, 18, 18, 0.7);
+    color: white;
+}

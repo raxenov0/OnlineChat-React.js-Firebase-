@@ -1,0 +1,12 @@
+.group{
+    display: flex;
+    width: 150px;
+    padding: 10px 8px;
+    background-color: white;
+    border: 1px solid black;
+    justify-content: space-around;
+    
+}
+.group img{
+    width: 30px;
+}
