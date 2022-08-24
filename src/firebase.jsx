@@ -8,14 +8,14 @@ import toast from 'react-hot-toast'
 
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
-    databaseURL:process.env.REACT_APP_DATABASE_URL
+    apiKey: 'AIzaSyA4S0JNdaCMBYcfuGu1RWmze_MAG9fBUTg',
+    authDomain: 'chat-app-39869.firebaseapp.com',
+    projectId: 'chat-app-39869',
+    storageBucket: 'chat-app-39869.appspot.com',
+    messagingSenderId:'221408528924',
+    appId: '1:221408528924:web:9e7f14407d1f21a42aadd9',
+    measurementId:'G-1EZ6G2S70Y',
+    databaseURL:'https://chat-app-39869-default-rtdb.europe-west1.firebasedatabase.app'
   };
 
   
