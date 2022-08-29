@@ -5,7 +5,7 @@ export function useDarkMode(){
 
   useEffect(() => {
     const className = "dark"
-    if (isDark !== 'White') {
+    if (isDark && isDark !== 'White') {
       window.document.body.classList.add(className)
     
       const element = document.getElementsByClassName('btn')
@@ -28,7 +28,7 @@ export function useDarkMode(){
     document.getElementsByClassName('text')[0].classList.add(className)
     document.getElementsByClassName('content')[0].classList.add(className)
 
-    } else {
+    } else if( isDark ){
       window.document.body.classList.remove(className)
 
       const element = document.getElementsByClassName('btn')

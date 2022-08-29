@@ -5,7 +5,7 @@ export function useDarkModeSign(){
 
   useEffect(() => {
     const className = "dark"
-    if (isDark !== 'White') {
+    if (isDark && isDark !== 'White') {
       window.document.body.classList.add(className)
       document.querySelector('.container > .screen').classList.add(className);
       document.querySelector('.screen__background__shape4').classList.add(className);
@@ -14,7 +14,7 @@ export function useDarkModeSign(){
       document.querySelector('.screen__background__shape1').classList.add(className);
       document.querySelector('.login__submit').classList.add(className);
     }
-     else {
+     else if( isDark ){
       window.document.body.classList.remove(className)
       document.querySelector('.container > .screen').classList.remove(className);
       document.querySelector('.screen__background__shape4').classList.remove(className);

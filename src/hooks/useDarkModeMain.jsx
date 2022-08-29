@@ -5,12 +5,12 @@ export function useDarkModeMain(){
 
   useEffect(() => {
     const className = "dark"
-    if (isDark !== 'White') {
+    if (isDark && isDark !== 'White') {
       // window.document.body.classList.add(className)
       // document.querySelector('#header').classList.add(className);
       document.querySelector('.button').classList.add(className);
     }
-     else {
+     else if( isDark ){
       // document.querySelector('#header').classList.remove(className);
       document.querySelector('.button').classList.remove(className);
       // window.document.body.classList.remove(className)

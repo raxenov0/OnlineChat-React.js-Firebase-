@@ -5,11 +5,11 @@ export function useDarkModeMessage(){
 
   useEffect(() => {
     const className = "dark"
-    if (isDark !== 'White') {
+    if (isDark && isDark !== 'White') {
       // window.document.body.classList.add(className)
       document.querySelector('main').classList.add(className);
     }
-     else {
+     else if( isDark ){
       document.querySelector('main').classList.remove(className);
       // window.document.body.classList.remove(className)
     }
