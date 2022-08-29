@@ -88,10 +88,13 @@ export const Chat = memo(({ CurrentGroup }) => {
 					</ul>
 
 					<footer>
-
-						<textarea ref={inputFocus} onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Type your message" autoComplete="off"></textarea>
-						<div className="cycle_send" >
+						<div className="keyboard">
+							<textarea ref={inputFocus} onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Type your message" autoComplete="off"></textarea>
 							<img src={smile} onClick={() => setEmodjiActive(emojiActive => !emojiActive)} alt="" />
+						</div>
+
+						<div className="cycle_send" >
+
 							<img src={send} onClick={message.length == 0 ? null : handleSubmit} />
 
 						</div>

@@ -5,7 +5,7 @@ main{
 	font-size:15px;
 	vertical-align:top;
 	margin: 0 auto;
-	background-color:#cce5e9;
+	background-color:rgb(204 229 233 / 80%);
 	color:rgb(41, 35, 35);
 }
 
@@ -183,13 +183,24 @@ main footer{
 	align-items: center;
 	padding:20px 30px 10px 20px;
 }
+.keyboard{
+	width: 90%;
+	position: relative;
+}
+.keyboard img{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 10px;
+
+}
 main footer textarea{
 	resize:none;
-	border:1px solid grey;
+	border:1px solid rgb(255, 255, 255);
 	display:block;
-	width:88%;
+	width:100%;
 	border-radius:3px;
-	padding:20px;
+	padding:20px 40px 20px 20px;
 	font-size:20px;
 	outline: none;
 }
@@ -227,7 +238,11 @@ main footer button{
 	flex-direction: column;
 	height: 80%;
 	max-height: 90px;
+	width: 8%;
 }
+/* .cycle_send img{
+	transform: rotate(-90deg);
+} */
 
 
 .entete img{
@@ -288,6 +303,15 @@ aside div li:hover{
 }
 @media(max-width: 768px){
 	.groupChats footer textarea{
-        padding: 5px;
+        padding: 5px 30px 5px 5px;
     }
+	.keyboard img{
+		width: 20px;
+		height: 20px;
+	}
+}
+@media(max-width: 450px){
+	main footer{
+		padding: 0 10px;
+	}
 }
