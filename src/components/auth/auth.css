@@ -243,3 +243,8 @@
 .screen.dark a{
 	color: white;
 }
+@media(max-width: 450px){
+	.login1{
+		padding-top: 30px;
+	}
+}
