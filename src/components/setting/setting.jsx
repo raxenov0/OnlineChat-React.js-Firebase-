@@ -35,8 +35,7 @@ export const Setting = () => {
     return (
         <div className="wrapper">
            
-            <div className="content">
-                 <Close/>
+            <div className="content"> <Close/>
                 <div className="left_content">
                     <img src={userAcc.photoURL ? userAcc.photoURL : emptyImg} alt="" />
                     <p className="username">{userAcc.displayName}</p>
