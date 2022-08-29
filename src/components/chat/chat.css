@@ -87,6 +87,7 @@ aside li h3{
 }
 
 main header{
+	height: 10vh;
 	padding:20px 0;
 	border-bottom: 2px solid rgb(111, 188, 237);
 	position: relative;
@@ -117,7 +118,7 @@ main header h3{
 	list-style-type:none;
 	overflow-y:scroll;
 	border-bottom:2px solid #fff;
-	height: 72%;
+	height: 83%;
 	font-size: 20px;
 	position: relative;
 }
@@ -279,4 +280,14 @@ aside div li:hover{
 	padding: 5px 8px;
 	background-color: rgb(94 97 106 / 30%);
 	border-radius: 15px;
+}
+.main_part{
+	height: 90vh;
+	display: flex;
+	flex-direction: column;
+}
+@media(max-width: 768px){
+	.groupChats footer textarea{
+        padding: 5px;
+    }
 }

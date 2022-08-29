@@ -21,8 +21,8 @@ export const Chat = memo(({ CurrentGroup }) => {
 
 	const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
-		setMessage(message=>message+emojiObject.emoji)
-	  };
+		setMessage(message => message + emojiObject.emoji)
+	};
 
 	const scrollToBottom = () => {
 		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -71,30 +71,33 @@ export const Chat = memo(({ CurrentGroup }) => {
 		return (
 			<main>
 				<header>
-					<CloseV2/>
-					<div style={{ textAlign: 'center', fontSize:"20px", fontWeight:'500', margin:'0 70px'}}>
+					<CloseV2 />
+					<div style={{ textAlign: 'center', fontSize: "20px", fontWeight: '500', margin: '0 70px' }}>
 						<span>{`${group}`}</span>
 					</div>
 				</header>
-				<ul id="chat">
-					{list_mes}
-					<div ref={messagesEndRef}></div>
-					{emojiActive ?
-					<div className="emoji_class">
-						<EmojiPicker onEmojiClick={onEmojiClick} disableSearchBar={true}/>
-					</div>
-					: null}
-				</ul>
-				
-				<footer>
+				<div className="main_part">
+					<ul id="chat">
+						{list_mes}
+						<div ref={messagesEndRef}></div>
+						{emojiActive ?
+							<div className="emoji_class">
+								<EmojiPicker onEmojiClick={onEmojiClick} disableSearchBar={true} />
+							</div>
+							: null}
+					</ul>
 
-					<textarea ref={inputFocus} onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Type your message" autoComplete="off"></textarea>
-					<div className="cycle_send" >
-						<img src={smile} onClick={() => setEmodjiActive(emojiActive => !emojiActive)} alt="" />
-						<img src={send} onClick={message.length == 0 ? null : handleSubmit} />
+					<footer>
 
-					</div>
-				</footer>
+						<textarea ref={inputFocus} onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Type your message" autoComplete="off"></textarea>
+						<div className="cycle_send" >
+							<img src={smile} onClick={() => setEmodjiActive(emojiActive => !emojiActive)} alt="" />
+							<img src={send} onClick={message.length == 0 ? null : handleSubmit} />
+
+						</div>
+					</footer>
+				</div>
+
 			</main>
 		)
 	}
