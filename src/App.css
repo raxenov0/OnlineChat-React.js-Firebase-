@@ -67,6 +67,7 @@ body {
 	font-size: 20px;
 	margin: 0px;
 	padding: 0px;
+	overflow-x: hidden;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
