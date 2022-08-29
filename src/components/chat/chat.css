@@ -121,6 +121,7 @@ main header h3{
 	height: 83%;
 	font-size: 20px;
 	position: relative;
+	overflow-x: hidden;
 }
 
 #chat::-webkit-scrollbar, .emoji-scroll-wrapper::-webkit-scrollbar, .emoji-group::-webkit-scrollbar { width: 0;}

@@ -78,7 +78,7 @@ export const Chat = memo(({ CurrentGroup }) => {
 				</header>
 				<div className="main_part">
 					<ul id="chat">
-						{list_mes}
+						{list_mes.length>0?list_mes:<div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%)', textAlign:'center'}}>{'Chat is empty :('}</div>}
 						<div ref={messagesEndRef}></div>
 						{emojiActive ?
 							<div className="emoji_class">
