@@ -1,0 +1,67 @@
+.arrowV2 {
+    width: 100px;
+    display: inline-block;
+    position: absolute;
+    top: 52px;
+    left: 0%;
+    cursor: pointer;
+    
+  }
+  .arrowV3 {
+    width: 100px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    cursor: pointer;
+    transform: scale(0.6);
+    display: none;
+  }
+  
+  .arrowV2::before, .arrowV3::before{
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-color: #75757580;
+    border-width: 2px 2px 0 0;
+    position: absolute;
+    transform-origin: 50% 50%;
+  }
+  
+  .arrowV2.left-type::before, .arrowV3.left-type::before {
+    transform: rotate(-135deg);
+    margin: -15px 0 0 -10px;
+  }
+  
+  .arrowV2::after, .arrowV3::after {
+    content: '';
+    display: block;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-color: #75757580;
+    position: absolute;
+    transform-origin: 50% 50%;
+  }
+  
+  .arrowV2.left-type::after, .arrowV3.left-type::after {
+    width: 50px;
+    height: 0;
+    border-width: 2px 0 0 0;
+    transform: translate(-14px, -1px);
+  }
+  .arrowV2:hover::before, .arrowV2:hover::after, .arrowV3:hover::before, .arrowV3:hover::after{
+    transition: 1s;
+    border-color: rgb(0, 0, 0, 100%);
+  }
+
+  @media(max-width: 768px){
+    .arrowV3{
+      display: block;
+    }
+    
+  }

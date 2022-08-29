@@ -1,74 +1,88 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Header } from "../../UI/header";
 import { Window } from "./window";
-import {getGroups} from './../../firebase'
+import { getGroups } from './../../firebase'
 import './selectChat.css'
 import Element from './element'
 import { Context } from "../../App";
 import { useDarkModeMain } from "../../hooks/useDarkModeMain";
+import { useCallback } from "react";
+import { Chat } from "../chat/chat";
+import { useParams } from "react-router-dom";
+import add from './../../img/add.png'
+import { useRef } from "react";
+import Humburger from './../../UI/humburger/humberger'
+import { EmptyChat } from "../chat/emptyChat";
+import { nanoid } from "nanoid";
 
 
 
 
-export const SelectChat = () =>{
+export const SelectChat = () => {
     let list = []
     const [create, setCreate] = useState(false)
     const [listGroups, setListGroups] = useState(list)
     const [currentList, setCurrentList] = useState([])
     const [search, setSearch] = useState('')
-    const {userAcc, isLoading, setIsLoading} = useContext(Context)
-    
+    const [update, setUpdate] = useState(false)
+    const { isLoading, setIsLoading, group } = useContext(Context)
+    const input = useRef(null)
+    const url = useParams()
 
     async function getAllGroupsMessages() {
         setIsLoading(true)
         const groups = await getGroups()
         list = []
-        groups.forEach((doc)=>{list.push(doc.data())})
-        setListGroups(list.sort((a,b)=>{return b.createAt - a.createAt}))
-        setIsLoading(false)  
+        groups.forEach((doc) => { list.push(doc.data()) })
+        setListGroups(list.sort((a, b) => { return b.createAt - a.createAt }))
+        setIsLoading(false)
     }
-    
+
     let current_list = []
 
-    function changeSearch(e){
+    function changeSearch(e) {
         setSearch(e.target.value)
-        if(e.target.value.length !== 0) {
-            current_list = listGroups.filter((gr)=> {return gr.group.toLowerCase().includes(e.target.value.toLowerCase())});
-            setCurrentList(current_list)}
+        if (e.target.value.length !== 0) {
+            current_list = listGroups.filter((gr) => { return gr.group.toLowerCase().includes(e.target.value.toLowerCase()) });
+            setCurrentList(current_list)
+        }
         else current_list = []
     }
 
-    const list_gr = listGroups.map(e=><Element url={e} key={e.group}>{e.group}</Element>)
+    const list_gr = listGroups.map(e => <Element url={e} key={nanoid()}>{e.group}</Element>)
 
-    // console.log(userAcc)
-    useEffect(()=>{
+    useEffect(() => {
         getAllGroupsMessages()
-    },[create])
-    
-    useDarkModeMain()
-    return(
-        <div className='window_wrap' >
-            <Header/>
-           
-            {create?<Window setCreate={setCreate}/>:null}
-            <div className='select'>
-                <div className='setting_groups'>
-                    <input placeholder="Search..." className='input_search' value={search} onChange={(e)=>changeSearch(e)} type="text" />
-                    {/* <img src={add} onClick={()=>setCreate(true)}/> */}
-                    <button className='button' onClick={()=>setCreate(true)}>Add</button>
-                </div>
-                
-                {
-                    isLoading?
-                    <div>Loading...</div>
-                    :<div className='list'>
-                        {search.length !== 0 ? currentList.map(e=><Element url={e} key={e.group}>{e.group}</Element>) : list_gr}
+        input.current.focus()
+    }, [update])
+
+    useCallback(useDarkModeMain(), [])
+
+    return (
+        <div className={url.chat?'chat_list window_wrap':'window_wrap'} >
+
+            {create ? <Window setUpdate={setUpdate} setCreate={setCreate} /> : null}
+            <div className="groupChats">
+
+                <div className='select'>
+                    <Humburger/>
+                    <div className='setting_groups'>
+
+                        <input ref={input} placeholder="Search..." className='input_search' value={search} onChange={(e) => changeSearch(e)} type="text" />
+                        <img src={add} className='button' onClick={() => setCreate(true)}/>
                     </div>
-                }
-                
+                    {
+                        isLoading ?
+                            <div>Loading...</div>
+                            : <div className='list'>
+                                {search.length !== 0 ? currentList.map(e => <Element url={e} key={nanoid()}>{e.group}</Element>) : list_gr}
+                            </div>
+                    }
+                </div>
+                {url.chat?<Chat CurrentGroup={group}/>:<EmptyChat/>}
             </div>
-            
-            
+
+
+
         </div>
     )
 }

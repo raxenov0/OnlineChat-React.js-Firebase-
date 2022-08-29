@@ -10,15 +10,14 @@ import { useDarkModeSign } from "../../hooks/useDarkModeSign.jsx";
 
 export const Auth = () =>{
     const [reg_email, setRegEmail] = useLocalStorage('reg_email','')
-    const [reg_password, setRegPassword] = useState('reg_password','')
+    const [reg_password, setRegPassword] = useLocalStorage('reg_password','')
     const [userName, setUserName] = useState('')
-    const {setIsAuth, setUser, setUserAcc, userAcc} = useContext(Context)
+    const {setIsAuth, setUser, setUserAcc} = useContext(Context)
     const ref =  useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         var user = await register(reg_email, reg_password, userName);
-        // console.log(user)
         if(user){
             setIsAuth(true)
             setUser(user.email)
@@ -27,7 +26,6 @@ export const Auth = () =>{
         } else toast.error("Error")
         return user
     }
-    console.log(process.env.REACT_APP_API_KEY)
     useDarkModeSign()
     return(
         <>

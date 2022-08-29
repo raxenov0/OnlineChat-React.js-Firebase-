@@ -16,7 +16,7 @@ export const pathRouter = {
     ],
     privateRouter:[
         {path:'/', Element: SelectChat},
-        {path:'/chat/:chat', Element: Chat},
+        {path:'/chat/:chat', Element: SelectChat},
         {path:'/setting', Element: Setting},
         {path:'/*', Element: SelectChat}
     ]

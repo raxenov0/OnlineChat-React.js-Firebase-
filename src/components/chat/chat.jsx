@@ -1,69 +1,102 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Context } from "../../App";
-import { currentMessages ,readingText1 } from "../../firebase";
+import { currentMessages, readingText1 } from "../../firebase";
 import { Message } from "./message";
-import { useParams } from "react-router-dom";
 import './chat.css'
 import { useDarkModeMessage } from "../../hooks/useDarkModeMessage";
 import send from './../../img/send.png'
+import smile from './../../img/smile.png'
+import { memo } from "react";
+import EmojiPicker from "emoji-picker-react";
+import { Close, CloseV2 } from "../../UI/close/close";
 
 
-export const Chat = () =>{
+export const Chat = memo(({ CurrentGroup }) => {
 
-const name = useParams()
-const {userAcc, group, isLoading, setIsLoading} = useContext(Context)
+	const { userAcc, group, isLoading, setIsLoading } = useContext(Context)
+	const [emojiActive, setEmodjiActive] = useState(false)
+	const messagesEndRef = useRef(null);
+	const inputFocus = useRef(null)
+	const [chosenEmoji, setChosenEmoji] = useState(null);
 
-const messagesEndRef = useRef(null);
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  
-const [message, setMessage] = useState('')
+	const onEmojiClick = (event, emojiObject) => {
+		setChosenEmoji(emojiObject);
+		setMessage(message=>message+emojiObject.emoji)
+	  };
 
-function handleSubmit(){
+	const scrollToBottom = () => {
+		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+	};
 
-	currentMessages(group, userAcc, message)
-	setMessage('')
+	const [message, setMessage] = useState('')
 
-}
-
-function compareNumbers(a,b){
-	return a.createAt-b.createAt
-}
- 
-const [messages, setMessages] = useState([])
-
-useEffect(()=>{
-	setIsLoading(true)
-	readingText1(group, setMessages, messages)
-	setIsLoading(false)
-} 
-
-, [])
-useEffect(scrollToBottom, [messages]);
-useDarkModeMessage()
+	function handleSubmit() {
+		currentMessages(CurrentGroup, userAcc, message)
+		setEmodjiActive(false)
+		setMessage('')
+	}
 
 
-const list_mes = messages.map(mes=> <Message key={mes.createAt} data={mes}/>)
- if(isLoading) return(<div>Loading...</div>); else {
-	return(
-		<main>
-			<header>
-				<div>
-						<h2 style={{textAlign:'center'}}>{`Chat: ${group}`}</h2>
-						<h3>already 1902 messages</h3>
+	const [messages, setMessages] = useState([])
+	async function getAllMessages() {
+		setIsLoading(true)
+		await readingText1(group, setMessages, messages)
+		setIsLoading(false)
+	}
+	useEffect(() => {
+		getAllMessages()
+		inputFocus.current.focus()
+	}, [CurrentGroup])
+
+
+	useEffect(() => {
+		const listener = event => {
+			if (event.code === "Enter" || event.code === "NumpadEnter") {
+				event.preventDefault();
+				handleSubmit()
+			}
+		};
+		document.addEventListener("keydown", listener);
+		return () => {
+			document.removeEventListener("keydown", listener);
+		};
+	}, [message]);
+
+	useEffect(scrollToBottom, [messages]);
+	useDarkModeMessage()
+
+
+	const list_mes = messages.map(mes => <Message key={mes.createAt} data={mes} />)
+	if (isLoading) return (<div>Loading...</div>); else {
+		return (
+			<main>
+				<header>
+					<CloseV2/>
+					<div style={{ textAlign: 'center', fontSize:"20px", fontWeight:'500', margin:'0 70px'}}>
+						<span>{`${group}`}</span>
 					</div>
-			</header>
-			<ul id="chat">
-				{list_mes}
-				<div ref={messagesEndRef}></div>
-			</ul>
-			<footer>
-				<textarea onChange={(e)=> setMessage(e.target.value)} value={message} placeholder="Type your message"></textarea>
-				<img src={send} onClick={()=>handleSubmit()}/>
-			</footer>
-	</main>    
-    )
- }
-    
-}
+				</header>
+				<ul id="chat">
+					{list_mes}
+					<div ref={messagesEndRef}></div>
+					{emojiActive ?
+					<div className="emoji_class">
+						<EmojiPicker onEmojiClick={onEmojiClick} disableSearchBar={true}/>
+					</div>
+					: null}
+				</ul>
+				
+				<footer>
+
+					<textarea ref={inputFocus} onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Type your message" autoComplete="off"></textarea>
+					<div className="cycle_send" >
+						<img src={smile} onClick={() => setEmodjiActive(emojiActive => !emojiActive)} alt="" />
+						<img src={send} onClick={message.length == 0 ? null : handleSubmit} />
+
+					</div>
+				</footer>
+			</main>
+		)
+	}
+
+})

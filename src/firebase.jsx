@@ -89,7 +89,8 @@ export const createNewGroup = async (name,user) => {
         const userName = (user.displayName ? user.displayName : 'underfind')
         const docRef = await addDoc(collection(db, "groups"),{
             group:name,
-            admin:user.uid
+            admin:user.uid,
+            adminName: user.displayName
         });
         try{  
             const washingtonRef = doc(db, "users/", user.uid);
@@ -211,18 +212,23 @@ export const readingMessages = async(group,setterFn,setter)=>{
 };
 
 
-export const readingText1 = (group, callback, value)=>{
+export const readingText1 = async(group, callback, value)=>{
     let data;
     const starCountRef = ref(database, group);
     onValue(starCountRef, (snapshot) => {
     data = snapshot.val();
     try{
-        if(value.length != Object.keys(data).length) {
+        
         const arr = []
         for(var i in data) arr.push(data[i])
         callback(arr)
+        return arr
+    
+    } catch{
+        callback([])
+        console.log('error')
+        return 1
     }
-    } catch{}
     
     });
     return data
@@ -240,7 +246,6 @@ export const downloadImage = async(file,user)=>{
 export const getImage = async(file, user, setUser)=>{
     const storage = getStorage();
     const unikuq = user.uid
-    console.log(file.ref._location.bucket+'/'+file.ref._location.path_)
     const starsRef = sRef(storage, 'gs://'+file.ref._location.bucket+'/'+file.ref._location.path_);
     const responce = await getDownloadURL(starsRef)
     try{  
