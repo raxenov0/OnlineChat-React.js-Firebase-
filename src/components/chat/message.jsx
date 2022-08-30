@@ -4,7 +4,6 @@ import { Context } from "../../App";
 import './chat.css'
 
 export const Message = memo(({ data }) => {
-	// console.log('render mes')
 	const { userAcc } = useContext(Context)
 	const UsesDate = useCallback((data) => {
 		let day = ('0' + new Date().getDate()).slice(-2)

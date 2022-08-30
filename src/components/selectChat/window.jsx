@@ -23,7 +23,7 @@ export const Window = ({setCreate,setUpdate}) => {
     }
 
     function inputName(e){
-        if(e.target.value.length > 22) setWarning(true)
+        if(e.target.value.length > 22 && e.target.value.length < 3 ) setWarning(true)
         else {
             setNameGroup(e.target.value)
             setWarning(false)
