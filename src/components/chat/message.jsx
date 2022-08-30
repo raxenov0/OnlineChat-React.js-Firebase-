@@ -10,10 +10,10 @@ export const Message = memo(({ data }) => {
 		let day = ('0' + new Date().getDate()).slice(-2)
 		let month = ('0' + (new Date().getMonth() + 1)).slice(-2);
 		let years = new Date().getFullYear()
-		let hours = ('0' + new Date().getHours()).slice(-2);
-		let minute = ('0' + new Date().getMinutes()).slice(-2)
+		
 
-
+		let hours = ('0' + new Date(data).getHours()).slice(-2);
+		let minute = ('0' + new Date(data).getMinutes()).slice(-2)
 		let curDay = ('0' + new Date(data).getDate()).slice(-2)
 		let curMonth = ('0' + (new Date(data).getMonth() + 1)).slice(-2);
 		let curYears = new Date(data).getFullYear()
