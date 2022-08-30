@@ -91,6 +91,9 @@ main header{
 	padding:20px 0;
 	border-bottom: 2px solid rgb(111, 188, 237);
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 main header > *{
 	vertical-align:top;
