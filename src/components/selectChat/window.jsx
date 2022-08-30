@@ -23,7 +23,7 @@ export const Window = ({setCreate,setUpdate}) => {
     }
 
     function inputName(e){
-        if(e.target.value.length > 22 && e.target.value.length < 3 ) setWarning(true)
+        if(e.target.value.length > 22 ) setWarning(true)
         else {
             setNameGroup(e.target.value)
             setWarning(false)
@@ -39,7 +39,7 @@ export const Window = ({setCreate,setUpdate}) => {
             <div onClick={(e)=> e.stopPropagation()} className='content_page'>
                 <span style={{color:warning?'#bb7373':'black'}}>{warning?'Title too long':'Name of your group'}</span>
                 <input ref={input} type="text" onChange={(e)=> inputName(e)} className='input_page' />
-            <button disabled={warning?true:false} onClick={()=>clickOnButton_newGroup()} className={warning?'btn btn_red':'btn'}>Create</button>
+            <button disabled={(warning || nameGroup.length < 3) ? true :false} onClick={()=>clickOnButton_newGroup()} className={(warning || nameGroup.length < 3) ?'btn btn_red':'btn'}>Create</button>
             </div>
         </div>
     )
